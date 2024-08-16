@@ -56,4 +56,32 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         productRepository.delete(product);
     }
+
+    @Override
+    public List<ProductDto> getProductsByUserId(Long userId) {
+        return productRepository.findByUserId(userId).stream()
+                .map(productMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getProductsByUserIdAndPriceRange(Long userId, Double minPrice, Double maxPrice) {
+        return productRepository.findByUserIdAndPriceRange(userId, minPrice, maxPrice).stream()
+                .map(productMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductDto getProductByOrderId(Long orderId) {
+        Product product = productRepository.findByOrderId(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with orderId: " + orderId));
+        return productMapper.convertToDto(product);
+    }
+
+    @Override
+    public List<ProductDto> getProductsByNotificationId(Long notificationId) {
+        return productRepository.findByNotificationId(notificationId).stream()
+                .map(productMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
 }

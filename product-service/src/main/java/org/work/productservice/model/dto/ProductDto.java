@@ -27,7 +27,7 @@ public class ProductDto  {
     private String category;
     @NotNull(message = "Stock quantity cannot be null")
     private Integer stockQuantity;
-    private Long userId;
+    private List<Long> userId;
     private Long orderId;
     private List<Long> notificationIds;
     private LocalDateTime createdAt;

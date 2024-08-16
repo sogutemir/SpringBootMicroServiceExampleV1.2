@@ -35,7 +35,9 @@ public class Product {
     @NotNull(message = "Stock quantity cannot be null")
     private Integer stockQuantity;
 
-    private Long userId;
+    @ElementCollection
+    private List<Long> userId;
+
     private Long orderId;
 
     @ElementCollection
