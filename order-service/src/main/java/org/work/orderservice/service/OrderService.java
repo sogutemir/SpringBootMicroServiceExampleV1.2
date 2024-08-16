@@ -10,4 +10,8 @@ public interface OrderService {
     List<OrderDto> getAllOrders();
     OrderDto updateOrder(Long id, OrderDto orderDto);
     void deleteOrder(Long id);
+    OrderDto getOrderByUserId(Long userId);
+    OrderDto getOrderByProductId(Long productId);
+    List<OrderDto> getOrdersByTotalPrice(Double totalPrice);
+    List<OrderDto> getOrdersByTotalPriceRange(Double minPrice, Double maxPrice);
 }

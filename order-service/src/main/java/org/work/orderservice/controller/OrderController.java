@@ -45,4 +45,28 @@ public class OrderController {
         orderService.deleteOrder(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<OrderDto> getOrderByUserId(@PathVariable Long userId) {
+        OrderDto order = orderService.getOrderByUserId(userId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<OrderDto> getOrderByProductId(@PathVariable Long productId) {
+        OrderDto order = orderService.getOrderByProductId(productId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @GetMapping("/total-price")
+    public ResponseEntity<List<OrderDto>> getOrdersByTotalPrice(@RequestParam Double totalPrice) {
+        List<OrderDto> orders = orderService.getOrdersByTotalPrice(totalPrice);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/total-price-range")
+    public ResponseEntity<List<OrderDto>> getOrdersByTotalPriceRange(@RequestParam Double minPrice, @RequestParam Double maxPrice) {
+        List<OrderDto> orders = orderService.getOrdersByTotalPriceRange(minPrice, maxPrice);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 }

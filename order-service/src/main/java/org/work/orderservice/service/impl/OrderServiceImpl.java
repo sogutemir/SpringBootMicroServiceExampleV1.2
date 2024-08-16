@@ -56,4 +56,33 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
         orderRepository.delete(order);
     }
+
+    @Override
+    public OrderDto getOrderByUserId(Long userId) {
+        Order order = orderRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with userId: " + userId));
+        return orderMapper.convertToDto(order);
+    }
+
+    @Override
+    public OrderDto getOrderByProductId(Long productId) {
+        Order order = orderRepository.findByProductId(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with productId: " + productId));
+        return orderMapper.convertToDto(order);
+    }
+
+    @Override
+    public List<OrderDto> getOrdersByTotalPrice(Double totalPrice) {
+        return orderRepository.findByTotalPrice(totalPrice).stream()
+                .map(orderMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDto> getOrdersByTotalPriceRange(Double minPrice, Double maxPrice) {
+        return orderRepository.findByTotalPriceRange(minPrice, maxPrice).stream()
+                .map(orderMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class OrderDto{
+
     private Long id;
     @Size(message = "Order number must be less than 50 characters", max = 50)
     @NotBlank(message = "Order number cannot be blank")
@@ -21,10 +22,6 @@ public class OrderDto{
     private String orderStatus;
     @NotNull(message = "Order date cannot be null")
     private LocalDateTime orderDate;
-    @NotNull(message = "User ID cannot be null")
-    private Long userId;
-    private Long productId;
-    private List<Long> notificationIds;
     @NotBlank(message = "Shipping address cannot be blank")
     private String shippingAddress;
     @NotBlank(message = "Billing address cannot be blank")
@@ -32,4 +29,10 @@ public class OrderDto{
     @NotNull(message = "Total price cannot be null")
     private Double totalPrice;
     private LocalDateTime createdAt;
+
+    @NotNull(message = "User ID cannot be null")
+    private Long userId;
+    private Long productId;
+    private List<Long> notificationIds;
+
 }
