@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class ProductServiceExternalOrderDto {
+public class ProductServiceExternalProductDto {
 
     private Long id;
     private String productName;
