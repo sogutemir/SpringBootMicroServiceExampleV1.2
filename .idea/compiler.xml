@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="product-service" />
         <module name="user-service" />
+        <module name="order-service" />
         <module name="account-service" />
         <module name="notification-service" />
       </profile>
@@ -17,6 +18,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
+      <module name="order-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
