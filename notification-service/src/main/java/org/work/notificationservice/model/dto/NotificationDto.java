@@ -1,42 +1,28 @@
-package org.work.notificationservice.model.entity;
+package org.work.notificationservice.model.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+/**
+ * DTO for {@link org.work.notificationservice.model.entity.Notification}
+ */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "notifications")
-public class Notification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Builder
+public class NotificationDto {
     private Long id;
-
     @NotBlank(message = "Message cannot be blank")
     private String message;
-
     @NotBlank(message = "Notification type cannot be blank")
     private String notificationType;
-
     @NotNull(message = "Read status cannot be null")
     private Boolean isRead;
-
     @NotNull(message = "Sent at time cannot be null")
     private LocalDateTime sentAt;
-
     private LocalDateTime createdAt;
-
     private Long userId;
-
     private Long orderId;
-
     private Long productId;
 }

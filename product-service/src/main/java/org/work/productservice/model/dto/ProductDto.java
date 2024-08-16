@@ -1,46 +1,34 @@
-package org.work.productservice.model.entity;
+package org.work.productservice.model.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Setter
+/**
+ * DTO for {@link org.work.productservice.model.entity.Product}
+ */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Entity
-@Table(name = "products")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Builder
+public class ProductDto  {
+
     private Long id;
-
+    @Size(message = "Product name must be less than 100 characters", max = 100)
     @NotBlank(message = "Product name cannot be blank")
-    @Size(max = 100, message = "Product name must be less than 100 characters")
     private String productName;
-
+    @Size(message = "Description must be less than 255 characters", max = 255)
     @NotBlank(message = "Description cannot be blank")
-    @Size(max = 255, message = "Description must be less than 255 characters")
     private String description;
-
     @NotNull(message = "Price cannot be null")
     private Double price;
-
     @NotBlank(message = "Category cannot be blank")
     private String category;
-
     @NotNull(message = "Stock quantity cannot be null")
     private Integer stockQuantity;
-
     private Long userId;
     private Long orderId;
-
-    @ElementCollection
     private List<Long> notificationIds;
-
     private LocalDateTime createdAt;
-
 }
