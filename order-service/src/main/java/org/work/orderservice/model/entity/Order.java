@@ -30,7 +30,7 @@ public class Order {
     @NotNull(message = "User ID cannot be null")
     private Long userId;  // Foreign key to User
 
-    private Long productId;  // Foreign key to Product
+    private Long productId;
 
     @ElementCollection
     private List<Long> notificationIds;
