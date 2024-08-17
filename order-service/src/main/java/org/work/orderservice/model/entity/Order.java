@@ -3,6 +3,7 @@ package org.work.orderservice.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,9 +28,10 @@ public class Order {
     @NotNull(message = "Order date cannot be null")
     private LocalDateTime orderDate;
 
-    @NotNull(message = "User ID cannot be null")
+    // User ile ilişkiyi userId üzerinden kuruyoruz
     private Long userId;
 
+    // Product ile ilişkiyi productId üzerinden kuruyoruz
     private Long productId;
 
     @ElementCollection

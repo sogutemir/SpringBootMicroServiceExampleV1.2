@@ -39,9 +39,8 @@ public class User {
     @NotBlank(message = "Phone number cannot be blank")
     private String phoneNumber;
 
+    // Account ile ilişkiyi accountId üzerinden kuruyoruz
     private Long accountId;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ElementCollection
     private List<Long> productIds;
@@ -52,11 +51,12 @@ public class User {
     @ElementCollection
     private List<Long> notificationIds;
 
+    private LocalDateTime createdAt = LocalDateTime.now();
+
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
     }
-
 }

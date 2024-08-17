@@ -2,10 +2,7 @@ package org.work.notificationservice.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -34,10 +31,9 @@ public class Notification {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    // User, Order ve Product ile ilişkiyi ilgili ID'ler üzerinden kuruyoruz
     private Long userId;
-
     private Long orderId;
-
     private Long productId;
 
     @PrePersist

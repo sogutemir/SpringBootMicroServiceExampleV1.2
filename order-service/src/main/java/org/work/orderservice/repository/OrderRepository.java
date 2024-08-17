@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o WHERE o.userId = :userId")
-    Optional<Order> findByUserId(@Param("userId") Long userId);
+    List<Order> findByUserId(@Param("userId") Long userId);
 
     @Query("SELECT o FROM Order o WHERE o.productId = :productId")
-    Optional<Order> findByProductId(@Param("productId") Long productId);
+    List<Order> findByProductId(@Param("productId") Long productId);
 
     @Query("SELECT o FROM Order o WHERE o.totalPrice = :totalPrice")
     List<Order> findByTotalPrice(@Param("totalPrice") Double totalPrice);
@@ -27,5 +27,4 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o WHERE o.userId = :userId ORDER BY o.orderDate DESC")
     List<Order> findTop5ByUserIdOrderByOrderDateDesc(@Param("userId") Long userId);
-
 }

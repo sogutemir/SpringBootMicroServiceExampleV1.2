@@ -35,10 +35,11 @@ public class Product {
     @NotNull(message = "Stock quantity cannot be null")
     private Integer stockQuantity;
 
-    @ElementCollection
-    private List<Long> userId;
+    // User ile ilişkiyi userId üzerinden kuruyoruz
+    private Long userId;
 
-    private Long orderId;
+    @ElementCollection
+    private List<Long> orderIds;
 
     @ElementCollection
     private List<Long> notificationIds;
@@ -51,5 +52,4 @@ public class Product {
             createdAt = LocalDateTime.now();
         }
     }
-
 }

@@ -3,6 +3,7 @@ package org.work.accountservice.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -30,7 +31,7 @@ public class Account {
     @NotBlank(message = "Address cannot be blank")
     private String address;
 
-    @NotNull(message = "User ID cannot be null")
+    // User ile ilişkiyi userId üzerinden kuruyoruz
     private Long userId;
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -41,5 +42,4 @@ public class Account {
             createdAt = LocalDateTime.now();
         }
     }
-
 }
