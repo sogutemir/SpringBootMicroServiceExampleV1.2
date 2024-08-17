@@ -1,3 +1,4 @@
+// OrderService.java
 package org.work.orderservice.service;
 
 import org.work.orderservice.model.dto.OrderDto;
@@ -10,8 +11,8 @@ public interface OrderService {
     List<OrderDto> getAllOrders();
     OrderDto updateOrder(Long id, OrderDto orderDto);
     void deleteOrder(Long id);
-    OrderDto getOrderByUserId(Long userId);
-    OrderDto getOrderByProductId(Long productId);
+    List<OrderDto> getOrdersByUserId(Long userId);
+    List<OrderDto> getOrdersByProductId(Long productId);
     List<OrderDto> getOrdersByTotalPrice(Double totalPrice);
     List<OrderDto> getOrdersByTotalPriceRange(Double minPrice, Double maxPrice);
     List<OrderDto> getOrdersByUserIdAndStatus(Long userId, String status);

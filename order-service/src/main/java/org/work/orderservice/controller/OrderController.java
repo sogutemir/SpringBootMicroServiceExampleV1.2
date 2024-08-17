@@ -47,15 +47,15 @@ public class OrderController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<OrderDto> getOrderByUserId(@PathVariable Long userId) {
-        OrderDto order = orderService.getOrderByUserId(userId);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+    public ResponseEntity<List<OrderDto>> getOrdersByUserId(@PathVariable Long userId) {
+        List<OrderDto> orders = orderService.getOrdersByUserId(userId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/product/{productId}")
-    public ResponseEntity<OrderDto> getOrderByProductId(@PathVariable Long productId) {
-        OrderDto order = orderService.getOrderByProductId(productId);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+    public ResponseEntity<List<OrderDto>> getOrdersByProductId(@PathVariable Long productId) {
+        List<OrderDto> orders = orderService.getOrdersByProductId(productId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/total-price")
@@ -81,7 +81,4 @@ public class OrderController {
         List<OrderDto> recentOrders = orderService.getRecentOrdersByUserId(userId);
         return new ResponseEntity<>(recentOrders, HttpStatus.OK);
     }
-
-
-
 }

@@ -51,25 +51,4 @@ public class ProductController {
         List<ProductDto> products = productService.getProductsByUserId(userId);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
-    @GetMapping("/user/{userId}/price-range")
-    public ResponseEntity<List<ProductDto>> getProductsByUserIdAndPriceRange(
-            @PathVariable Long userId,
-            @RequestParam(required = false) Double minPrice,
-            @RequestParam(required = false) Double maxPrice) {
-        List<ProductDto> products = productService.getProductsByUserIdAndPriceRange(userId, minPrice, maxPrice);
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
-
-    @GetMapping("/order/{orderId}")
-    public ResponseEntity<ProductDto> getProductByOrderId(@PathVariable Long orderId) {
-        ProductDto product = productService.getProductByOrderId(orderId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @GetMapping("/notification/{notificationId}")
-    public ResponseEntity<List<ProductDto>> getProductsByNotificationId(@PathVariable Long notificationId) {
-        List<ProductDto> products = productService.getProductsByNotificationId(notificationId);
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
 }

@@ -58,17 +58,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto getOrderByUserId(Long userId) {
-        Order order = orderRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with userId: " + userId));
-        return orderMapper.convertToDto(order);
+    public List<OrderDto> getOrdersByUserId(Long userId) {
+        return orderRepository.findByUserId(userId).stream()
+                .map(orderMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public OrderDto getOrderByProductId(Long productId) {
-        Order order = orderRepository.findByProductId(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with productId: " + productId));
-        return orderMapper.convertToDto(order);
+    public List<OrderDto> getOrdersByProductId(Long productId) {
+        return orderRepository.findByProductId(productId).stream()
+                .map(orderMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -102,6 +102,4 @@ public class OrderServiceImpl implements OrderService {
                 .map(orderMapper::convertToDto)
                 .collect(Collectors.toList());
     }
-
-
 }
