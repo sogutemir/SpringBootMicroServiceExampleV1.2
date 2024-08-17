@@ -96,4 +96,12 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<OrderDto> getRecentOrdersByUserId(Long userId) {
+        return orderRepository.findTop5ByUserIdOrderByOrderDateDesc(userId).stream()
+                .map(orderMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+
 }

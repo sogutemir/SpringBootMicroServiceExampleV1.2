@@ -76,5 +76,12 @@ public class OrderController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}/recent")
+    public ResponseEntity<List<OrderDto>> getRecentOrdersByUserId(@PathVariable Long userId) {
+        List<OrderDto> recentOrders = orderService.getRecentOrdersByUserId(userId);
+        return new ResponseEntity<>(recentOrders, HttpStatus.OK);
+    }
+
+
 
 }

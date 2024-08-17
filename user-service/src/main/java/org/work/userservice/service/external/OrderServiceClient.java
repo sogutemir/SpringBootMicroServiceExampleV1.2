@@ -53,6 +53,19 @@ public class OrderServiceClient {
         }
     }
 
+    public List<OrderServiceExternalOrderDto> getTop5MostRecentOrders(Long userId) {
+        String url = "http://order-service:8080/api/orders/user/" + userId + "/recent";
+        try {
+            return restClient.get()
+                    .uri(url)
+                    .retrieve()
+                    .body(new ParameterizedTypeReference<>() {});
+        } catch (RestClientException e) {
+            throw new MicroserviceCommunicationException("Failed to communicate with Order Service", e);
+        }
+    }
+
+
 
 
 }
