@@ -60,12 +60,6 @@ public class UserController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("/products/{productId}")
-    public ResponseEntity<ProductServiceExternalProductDto> getProductById(@PathVariable Long productId) {
-        ProductServiceExternalProductDto product = userService.getProductById(productId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
     /*
     * order-service methods
      */
