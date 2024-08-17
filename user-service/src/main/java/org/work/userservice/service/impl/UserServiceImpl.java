@@ -18,7 +18,6 @@ import org.work.userservice.service.external.ProductServiceClient;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,30 +91,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProductServiceExternalProductDto getProductById(Long productId) {
-        return productServiceClient.getProductById(productId);
-    }
-
-    @Override
     public List<ProductServiceExternalProductDto> getProductsByUserId(Long userId) {
         return productServiceClient.getProductsByUserId(userId);
     }
-
-    @Override
-    public List<ProductServiceExternalProductDto> getProductsByOrderId(Long orderId) {
-        return productServiceClient.getProductsByOrderId(orderId);
-    }
-
-    @Override
-    public List<ProductServiceExternalProductDto> getProductsByNotificationId(Long notificationId) {
-        return productServiceClient.getProductsByNotificationId(notificationId);
-    }
-
-    @Override
-    public List<ProductServiceExternalProductDto> getProductsByUserIdAndPriceRange(Long userId, Double minPrice, Double maxPrice) {
-        return productServiceClient.getProductsByUserIdAndPriceRange(userId, minPrice, maxPrice);
-    }
-
 
     @Override
     public List<OrderServiceExternalOrderDto> getTop5OrdersByTotalPrice(Long userId) {
@@ -155,20 +133,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         return orderServiceClient.getOrdersByUserIdAndStatus(userId, status);
-    }
-
-    @Override
-    public ProductServiceExternalProductDto getMostFrequentlyOrderedProductByUserId(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-        List<OrderServiceExternalOrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
-        Map<Long, Long> productFrequency = orders.stream()
-                .collect(Collectors.groupingBy(OrderServiceExternalOrderDto::getProductId, Collectors.counting()));
-        Long mostFrequentProductId = productFrequency.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .orElseThrow(() -> new ResourceNotFoundException("No products found for user with id: " + userId))
-                .getKey();
-        return productServiceClient.getProductById(mostFrequentProductId);
     }
 
 

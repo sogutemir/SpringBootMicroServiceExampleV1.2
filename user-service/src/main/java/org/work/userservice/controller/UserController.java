@@ -66,28 +66,6 @@ public class UserController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @GetMapping("/orders/{orderId}/products")
-    public ResponseEntity<List<ProductServiceExternalProductDto>> getProductsByOrderId(@PathVariable Long orderId) {
-        List<ProductServiceExternalProductDto> products = userService.getProductsByOrderId(orderId);
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
-
-    @GetMapping("/notifications/{notificationId}/products")
-    public ResponseEntity<List<ProductServiceExternalProductDto>> getProductsByNotificationId(@PathVariable Long notificationId) {
-        List<ProductServiceExternalProductDto> products = userService.getProductsByNotificationId(notificationId);
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
-
-    @GetMapping("/{userId}/products/price-range")
-    public ResponseEntity<List<ProductServiceExternalProductDto>> getProductsByUserIdAndPriceRange(
-            @PathVariable Long userId,
-            @RequestParam(required = false) Double minPrice,
-            @RequestParam(required = false) Double maxPrice) {
-        List<ProductServiceExternalProductDto> products = userService.getProductsByUserIdAndPriceRange(userId, minPrice, maxPrice);
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
-
-
     /*
     * order-service methods
      */
@@ -115,9 +93,4 @@ public class UserController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/most-frequent-product")
-    public ResponseEntity<ProductServiceExternalProductDto> getMostFrequentlyOrderedProductByUserId(@PathVariable Long userId) {
-        ProductServiceExternalProductDto product = userService.getMostFrequentlyOrderedProductByUserId(userId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
 }
