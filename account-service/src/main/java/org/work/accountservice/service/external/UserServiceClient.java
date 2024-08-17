@@ -1,12 +1,12 @@
-package org.work.orderservice.service.external;
+package org.work.accountservice.service.external;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
-import org.work.orderservice.exception.MicroserviceCommunicationException;
-import org.work.orderservice.model.external.UserServiceExternalUserDto;
+import org.work.accountservice.exception.MicroserviceCommunicationException;
+import org.work.accountservice.model.external.UserServiceExternalUserDto;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
