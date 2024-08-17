@@ -44,5 +44,12 @@ public class Order {
     @NotNull(message = "Total price cannot be null")
     private Double totalPrice;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 }

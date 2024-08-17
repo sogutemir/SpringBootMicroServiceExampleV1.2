@@ -41,7 +41,7 @@ public class User {
 
     private Long accountId;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ElementCollection
     private List<Long> productIds;
@@ -51,5 +51,12 @@ public class User {
 
     @ElementCollection
     private List<Long> notificationIds;
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 
 }

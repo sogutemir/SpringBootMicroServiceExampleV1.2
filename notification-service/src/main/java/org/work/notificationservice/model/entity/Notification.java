@@ -32,11 +32,18 @@ public class Notification {
     @NotNull(message = "Sent at time cannot be null")
     private LocalDateTime sentAt;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     private Long userId;
 
     private Long orderId;
 
     private Long productId;
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 }

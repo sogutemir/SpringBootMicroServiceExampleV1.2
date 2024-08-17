@@ -33,6 +33,13 @@ public class Account {
     @NotNull(message = "User ID cannot be null")
     private Long userId;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
 
 }
