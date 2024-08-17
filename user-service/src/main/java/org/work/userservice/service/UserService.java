@@ -18,6 +18,9 @@ public interface UserService {
     AccountServiceExternalAccountDto getAccountByUserId(Long accountId);
 
     List<ProductServiceExternalProductDto> getProductsByUserId(Long userId);
+    List<ProductServiceExternalProductDto> getProductsByCategory(String category);
+    List<ProductServiceExternalProductDto> getProductsByPriceRange(Double minPrice, Double maxPrice);
+
     //OrderServiceExternalOrderDto
     List<OrderServiceExternalOrderDto> getOrdersByUserId(Long userId);
     List<OrderServiceExternalOrderDto> getTop5MostRecentOrders(Long userId);

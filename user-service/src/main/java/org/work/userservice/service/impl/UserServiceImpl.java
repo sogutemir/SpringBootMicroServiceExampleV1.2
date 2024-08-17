@@ -164,4 +164,30 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
     }
+
+    @Override
+    public List<ProductServiceExternalProductDto> getProductsByCategory(String category) {
+        log.info("Fetching products for category: " + category);
+        try {
+            List<ProductServiceExternalProductDto> products = productServiceClient.getProductsByCategory(category);
+            log.info("Successfully fetched products for category: " + category);
+            return products;
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching products for category: " + category, e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<ProductServiceExternalProductDto> getProductsByPriceRange(Double minPrice, Double maxPrice) {
+        log.info("Fetching products for price range: " + minPrice + " - " + maxPrice);
+        try {
+            List<ProductServiceExternalProductDto> products = productServiceClient.getProductsByPriceRange(minPrice, maxPrice);
+            log.info("Successfully fetched products for price range: " + minPrice + " - " + maxPrice);
+            return products;
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching products for price range: " + minPrice + " - " + maxPrice, e);
+            throw e;
+        }
+    }
 }

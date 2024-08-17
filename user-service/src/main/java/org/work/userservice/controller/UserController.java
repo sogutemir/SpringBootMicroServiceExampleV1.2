@@ -60,6 +60,20 @@ public class UserController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+
+    @GetMapping("/products/category/{category}")
+    public ResponseEntity<List<ProductServiceExternalProductDto>> getProductsByCategory(@PathVariable String category) {
+        List<ProductServiceExternalProductDto> products = userService.getProductsByCategory(category);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/products/price-range")
+    public ResponseEntity<List<ProductServiceExternalProductDto>> getProductsByPriceRange(@RequestParam Double minPrice, @RequestParam Double maxPrice) {
+        List<ProductServiceExternalProductDto> products = userService.getProductsByPriceRange(minPrice, maxPrice);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
     /*
     * order-service methods
      */
