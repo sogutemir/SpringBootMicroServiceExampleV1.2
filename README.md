@@ -27,6 +27,8 @@ This project is a microservices-based application that manages products, users, 
 - **Key Components**:
     - `UserServiceImpl`: Service implementation for user-related operations.
     - `OrderServiceClient`: Client for interacting with the Order Service.
+    - `ProductServiceClient`: Client for interacting with the Product Service.
+    - `AccountServiceClient`: Client for interacting with the Account Service.
     - `UserRepository`: Repository interface for user data access.
     - `UserMapper`: Mapper for converting between `User` entities and `UserDto` data transfer objects.
   
@@ -48,6 +50,7 @@ This project is a microservices-based application that manages products, users, 
 - **Key Components**:
     - `AccountServiceImpl`: Service implementation for account-related operations.
     - `AccountRepository`: Repository interface for account data access.
+    - `UserServiceClient`: Client for interacting with the User Service.
     - `AccountMapper`: Mapper for converting between `Account` entities and `AccountDto` data transfer objects.
 
 ### Order Service
@@ -231,3 +234,5 @@ Logging is implemented using the `java.util.logging` package. Logs are generated
 5. Access the services using the provided endpoints.
 6. Stop the services: `docker-compose down`
 7. Remove the services: `docker-compose rm`
+
+
