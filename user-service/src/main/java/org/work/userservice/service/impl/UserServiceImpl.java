@@ -33,70 +33,108 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper = new UserMapper();
     private static final Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
-
     @Override
     public UserDto createUser(UserDto userDto) {
-        if (userDto == null) {
-            throw new InvalidInputException("User data cannot be null");
+        try {
+            if (userDto == null) {
+                throw new InvalidInputException("User data cannot be null");
+            }
+            User user = userMapper.convertToEntity(userDto);
+            User savedUser = userRepository.save(user);
+            return userMapper.convertToDto(savedUser);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error creating user", e);
+            throw e;
         }
-        User user = userMapper.convertToEntity(userDto);
-        User savedUser = userRepository.save(user);
-        return userMapper.convertToDto(savedUser);
     }
 
     @Override
     public UserDto getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        return userMapper.convertToDto(user);
+        try {
+            User user = userRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+            return userMapper.convertToDto(user);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching user by id: " + id, e);
+            throw e;
+        }
     }
-
 
     @Override
     public Double getTotalSpendingByUserId(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-        List<OrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
-        return orders.stream()
-                .mapToDouble(OrderDto::getTotalPrice)
-                .sum();
+        try {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+            List<OrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
+            return orders.stream()
+                    .mapToDouble(OrderDto::getTotalPrice)
+                    .sum();
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error calculating total spending for userId: " + userId, e);
+            throw e;
+        }
     }
 
     @Override
     public List<UserDto> getAllUsers() {
-        return userRepository.findAll().stream()
-                .map(userMapper::convertToDto)
-                .collect(Collectors.toList());
+        try {
+            return userRepository.findAll().stream()
+                    .map(userMapper::convertToDto)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching all users", e);
+            throw e;
+        }
     }
 
     @Override
     public UserDto updateUser(Long id, UserDto userDto) {
-        if (userDto == null) {
-            throw new InvalidInputException("User data cannot be null");
+        try {
+            if (userDto == null) {
+                throw new InvalidInputException("User data cannot be null");
+            }
+            User existingUser = userRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+            User updatedUser = userMapper.convertToEntity(userDto);
+            updatedUser.setId(existingUser.getId());
+            User savedUser = userRepository.save(updatedUser);
+            return userMapper.convertToDto(savedUser);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error updating user with id: " + id, e);
+            throw e;
         }
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        User updatedUser = userMapper.convertToEntity(userDto);
-        updatedUser.setId(existingUser.getId());
-        User savedUser = userRepository.save(updatedUser);
-        return userMapper.convertToDto(savedUser);
     }
 
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        userRepository.delete(user);
+        try {
+            User user = userRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+            userRepository.delete(user);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error deleting user with id: " + id, e);
+            throw e;
+        }
     }
 
     @Override
     public AccountServiceExternalAccountDto getAccountByUserId(Long accountId) {
-        return accountServiceClient.getAccountById(accountId);
+        try {
+            return accountServiceClient.getAccountById(accountId);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching account for accountId: " + accountId, e);
+            throw e;
+        }
     }
 
     @Override
     public List<ProductServiceExternalProductDto> getProductsByUserId(Long userId) {
-        return productServiceClient.getProductsByUserId(userId);
+        try {
+            return productServiceClient.getProductsByUserId(userId);
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching products for userId: " + userId, e);
+            throw e;
+        }
     }
 
     @Override
@@ -113,13 +151,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<OrderDto> getTop5MostRecentOrders(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-        List<OrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
-        return orders.stream()
-                .sorted(Comparator.comparing(OrderDto::getCreatedAt).reversed())
-                .limit(5)
-                .collect(Collectors.toList());
+        try {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+            List<OrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
+            return orders.stream()
+                    .sorted(Comparator.comparing(OrderDto::getCreatedAt).reversed())
+                    .limit(5)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.log(Level.SEVERE, "Error fetching top 5 most recent orders for userId: " + userId, e);
+            throw e;
+        }
     }
-
 }
