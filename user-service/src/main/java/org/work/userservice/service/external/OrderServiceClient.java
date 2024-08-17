@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import org.work.userservice.exception.MicroserviceCommunicationException;
-import org.work.userservice.model.external.OrderDto;
+import org.work.userservice.model.external.OrderServiceExternalOrderDto;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -19,11 +19,11 @@ public class OrderServiceClient {
     private final RestClient restClient;
     private static final Logger log = Logger.getLogger(OrderServiceClient.class.getName());
 
-    public List<OrderDto> getOrdersByUserId(Long userId) {
+    public List<OrderServiceExternalOrderDto> getOrdersByUserId(Long userId) {
         String url = "http://order-service:8080/api/orders/user/" + userId;
         log.info("Fetching orders for userId: " + userId + " from URL: " + url);
         try {
-            List<OrderDto> orders = restClient.get()
+            List<OrderServiceExternalOrderDto> orders = restClient.get()
                     .uri(url)
                     .retrieve()
                     .body(new ParameterizedTypeReference<>() {});

@@ -7,7 +7,7 @@ import org.work.userservice.exception.InvalidInputException;
 import org.work.userservice.model.dto.UserDto;
 import org.work.userservice.model.entity.User;
 import org.work.userservice.model.external.AccountServiceExternalAccountDto;
-import org.work.userservice.model.external.OrderDto;
+import org.work.userservice.model.external.OrderServiceExternalOrderDto;
 import org.work.userservice.model.external.ProductServiceExternalProductDto;
 import org.work.userservice.model.mapper.UserMapper;
 import org.work.userservice.repository.UserRepository;
@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-            List<OrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
+            List<OrderServiceExternalOrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
             return orders.stream()
-                    .mapToDouble(OrderDto::getTotalPrice)
+                    .mapToDouble(OrderServiceExternalOrderDto::getTotalPrice)
                     .sum();
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error calculating total spending for userId: " + userId, e);
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<OrderDto> getOrdersByUserId(Long userId) {
+    public List<OrderServiceExternalOrderDto> getOrdersByUserId(Long userId) {
         try {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
@@ -150,13 +150,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<OrderDto> getTop5MostRecentOrders(Long userId) {
+    public List<OrderServiceExternalOrderDto> getTop5MostRecentOrders(Long userId) {
         try {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-            List<OrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
+            List<OrderServiceExternalOrderDto> orders = orderServiceClient.getOrdersByUserId(userId);
             return orders.stream()
-                    .sorted(Comparator.comparing(OrderDto::getCreatedAt).reversed())
+                    .sorted(Comparator.comparing(OrderServiceExternalOrderDto::getCreatedAt).reversed())
                     .limit(5)
                     .collect(Collectors.toList());
         } catch (Exception e) {
