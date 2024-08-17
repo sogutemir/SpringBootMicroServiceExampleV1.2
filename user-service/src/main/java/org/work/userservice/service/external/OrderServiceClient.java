@@ -6,66 +6,33 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import org.work.userservice.exception.MicroserviceCommunicationException;
-import org.work.userservice.model.external.OrderServiceExternalOrderDto;
+import org.work.userservice.model.external.OrderDto;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceClient {
 
     private final RestClient restClient;
+    private static final Logger log = Logger.getLogger(OrderServiceClient.class.getName());
 
-    public List<OrderServiceExternalOrderDto> getOrdersByIds(List<Long> orderIds) {
-        String url = "http://order-service:8080/api/orders/ids";
-        try {
-            return restClient.post()
-                    .uri(url)
-                    .body(orderIds)
-                    .retrieve()
-                    .body(new ParameterizedTypeReference<>() {});
-        } catch (RestClientException e) {
-            throw new MicroserviceCommunicationException("Failed to communicate with Order Service", e);
-        }
-    }
-
-    public List<OrderServiceExternalOrderDto> getOrdersByUserId(Long userId) {
+    public List<OrderDto> getOrdersByUserId(Long userId) {
         String url = "http://order-service:8080/api/orders/user/" + userId;
+        log.info("Fetching orders for userId: " + userId + " from URL: " + url);
         try {
-            return restClient.get()
+            List<OrderDto> orders = restClient.get()
                     .uri(url)
                     .retrieve()
                     .body(new ParameterizedTypeReference<>() {});
+            log.info("Successfully fetched orders for userId: " + userId);
+            return orders;
         } catch (RestClientException e) {
+            log.log(Level.SEVERE, "Error fetching orders for userId: " + userId, e);
             throw new MicroserviceCommunicationException("Failed to communicate with Order Service", e);
         }
     }
-
-    public List<OrderServiceExternalOrderDto> getOrdersByUserIdAndStatus(Long userId, String status) {
-        String url = "http://order-service:8080/api/orders/user/" + userId + "/status/" + status;
-        try {
-            return restClient.get()
-                    .uri(url)
-                    .retrieve()
-                    .body(new ParameterizedTypeReference<>() {});
-        } catch (RestClientException e) {
-            throw new MicroserviceCommunicationException("Failed to communicate with Order Service", e);
-        }
-    }
-
-    public List<OrderServiceExternalOrderDto> getTop5MostRecentOrders(Long userId) {
-        String url = "http://order-service:8080/api/orders/user/" + userId + "/recent";
-        try {
-            return restClient.get()
-                    .uri(url)
-                    .retrieve()
-                    .body(new ParameterizedTypeReference<>() {});
-        } catch (RestClientException e) {
-            throw new MicroserviceCommunicationException("Failed to communicate with Order Service", e);
-        }
-    }
-
-
-
 
 }

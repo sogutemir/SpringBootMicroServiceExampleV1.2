@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class OrderServiceExternalOrderDto {
+public class OrderDto {
 
     private Long id;
 

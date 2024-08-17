@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.work.userservice.model.dto.UserDto;
-import org.work.userservice.model.external.OrderServiceExternalOrderDto;
+import org.work.userservice.model.external.OrderDto;
 import org.work.userservice.model.external.ProductServiceExternalProductDto;
 import org.work.userservice.service.UserService;
 
@@ -63,27 +63,15 @@ public class UserController {
     /*
     * order-service methods
      */
-    @GetMapping("/{userId}/top-orders")
-    public ResponseEntity<List<OrderServiceExternalOrderDto>> getTop5OrdersByTotalPrice(@PathVariable Long userId) {
-        List<OrderServiceExternalOrderDto> orders = userService.getTop5OrdersByTotalPrice(userId);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
-    }
-
     @GetMapping("/{userId}/orders")
-    public ResponseEntity<List<OrderServiceExternalOrderDto>> getOrdersByUserId(@PathVariable Long userId) {
-        List<OrderServiceExternalOrderDto> orders = userService.getOrdersByUserId(userId);
+    public ResponseEntity<List<OrderDto>> getOrdersByUserId(@PathVariable Long userId) {
+        List<OrderDto> orders = userService.getOrdersByUserId(userId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/orders/recent")
-    public ResponseEntity<List<OrderServiceExternalOrderDto>> getTop5MostRecentOrders(@PathVariable Long userId) {
-        List<OrderServiceExternalOrderDto> orders = userService.getTop5MostRecentOrders(userId);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
-    }
-
-    @GetMapping("/{userId}/orders/status/{status}")
-    public ResponseEntity<List<OrderServiceExternalOrderDto>> getOrdersByUserIdAndStatus(@PathVariable Long userId, @PathVariable String status) {
-        List<OrderServiceExternalOrderDto> orders = userService.getOrdersByUserIdAndStatus(userId, status);
+    public ResponseEntity<List<OrderDto>> getTop5MostRecentOrders(@PathVariable Long userId) {
+        List<OrderDto> orders = userService.getTop5MostRecentOrders(userId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
