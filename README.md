@@ -28,6 +28,8 @@ This project is a microservices-based application that manages products, users, 
     - `UserServiceImpl`: Service implementation for user-related operations.
     - `OrderServiceClient`: Client for interacting with the Order Service.
     - `UserRepository`: Repository interface for user data access.
+    - `UserMapper`: Mapper for converting between `User` entities and `UserDto` data transfer objects.
+  
 
 ### Product Service
 
@@ -46,6 +48,7 @@ This project is a microservices-based application that manages products, users, 
 - **Key Components**:
     - `AccountServiceImpl`: Service implementation for account-related operations.
     - `AccountRepository`: Repository interface for account data access.
+    - `AccountMapper`: Mapper for converting between `Account` entities and `AccountDto` data transfer objects.
 
 ### Order Service
 
@@ -54,6 +57,8 @@ This project is a microservices-based application that manages products, users, 
 - **Key Components**:
     - `OrderServiceImpl`: Service implementation for order-related operations.
     - `OrderRepository`: Repository interface for order data access.
+    - `UserServiceClient`: Client for interacting with the User Service.
+    - `OrderMapper`: Mapper for converting between `Order` entities and `OrderDto` data transfer objects.
 
 ### Notification Service
 
@@ -62,6 +67,7 @@ This project is a microservices-based application that manages products, users, 
 - **Key Components**:
     - `NotificationServiceImpl`: Service implementation for notification-related operations.
     - `NotificationRepository`: Repository interface for notification data access.
+    - `NotificationMapper`: Mapper for converting between `Notification` entities and `NotificationDto` data transfer objects.
 
 ## Endpoints
 
@@ -209,6 +215,8 @@ This project is a microservices-based application that manages products, users, 
 
 - **ResourceNotFoundException**: Thrown when a requested resource is not found.
 - **MicroserviceCommunicationException**: Thrown when there is an error communicating with another microservice.
+- **InvalidRequestException**: Thrown when an invalid request is made.
+- **GlobalExceptionHandler**: Handles exceptions globally for all controllers.
 
 ## Logging
 
