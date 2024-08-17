@@ -55,6 +55,7 @@ services:
     depends_on:
       - postgres
 
+
   notification-service:
     image: notification-service:latest
     ports:

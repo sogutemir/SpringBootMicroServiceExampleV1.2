@@ -22,4 +22,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o WHERE o.totalPrice >= :minPrice AND o.totalPrice <= :maxPrice")
     List<Order> findByTotalPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
 
+    @Query("SELECT o FROM Order o WHERE o.userId = :userId AND o.orderStatus = :status")
+    List<Order> findByUserIdAndStatus(@Param("userId") Long userId, @Param("status") String status);
 }

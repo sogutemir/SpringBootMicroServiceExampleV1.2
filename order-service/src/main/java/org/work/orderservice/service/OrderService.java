@@ -14,4 +14,5 @@ public interface OrderService {
     OrderDto getOrderByProductId(Long productId);
     List<OrderDto> getOrdersByTotalPrice(Double totalPrice);
     List<OrderDto> getOrdersByTotalPriceRange(Double minPrice, Double maxPrice);
+    List<OrderDto> getOrdersByUserIdAndStatus(Long userId, String status);
 }

@@ -69,4 +69,11 @@ public class OrderController {
         List<OrderDto> orders = orderService.getOrdersByTotalPriceRange(minPrice, maxPrice);
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
+    @GetMapping("/user/{userId}/status/{status}")
+    public ResponseEntity<List<OrderDto>> getOrdersByUserIdAndStatus(@PathVariable Long userId, @PathVariable String status) {
+        List<OrderDto> orders = orderService.getOrdersByUserIdAndStatus(userId, status);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
 }

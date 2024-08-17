@@ -85,4 +85,15 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<OrderDto> getOrdersByUserIdAndStatus(Long userId, String status) {
+        List<Order> orders = orderRepository.findByUserIdAndStatus(userId, status);
+        if (orders.isEmpty()) {
+            throw new ResourceNotFoundException("No orders found for user with id: " + userId + " and status: " + status);
+        }
+        return orders.stream()
+                .map(orderMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
 }
