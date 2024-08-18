@@ -1,6 +1,7 @@
 package org.work.orderservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.work.orderservice.exception.ResourceNotFoundException;
 import org.work.orderservice.model.dto.OrderDto;
@@ -24,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper = new OrderMapper();
     private static final Logger log = Logger.getLogger(OrderServiceImpl.class.getName());
     private final UserServiceClient userServiceClient;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
@@ -47,6 +49,8 @@ public class OrderServiceImpl implements OrderService {
 
             log.info("Successfully updated user: " + updatedUser);
             log.info("Order created successfully with id: " + savedOrder.getId());
+            kafkaTemplate.send("ORDER_TOPIC", savedOrder.getId().toString());
+
             return orderMapper.convertToDto(savedOrder);
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error creating order", e);

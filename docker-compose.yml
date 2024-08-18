@@ -10,6 +10,8 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - kafka-net
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -48,6 +50,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
     depends_on:
       - postgres
+    networks:
+      - kafka-net
 
   user-service:
     build: ./user-service
@@ -59,6 +63,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
     depends_on:
       - postgres
+    networks:
+      - kafka-net
 
   order-service:
     build: ./order-service
@@ -84,7 +90,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
     depends_on:
       - postgres
-
+    networks:
+      - kafka-net
 
   notification-service:
     build: ./notification-service
@@ -109,6 +116,8 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+    networks:
+      - kafka-net
 
 volumes:
   postgres-data:

@@ -31,7 +31,6 @@ public class Notification {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // User, Order ve Product ile ilişkiyi ilgili ID'ler üzerinden kuruyoruz
     private Long userId;
     private Long orderId;
     private Long productId;
