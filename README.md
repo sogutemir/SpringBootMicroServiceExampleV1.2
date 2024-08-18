@@ -16,7 +16,11 @@ This project is a microservices-based application that manages products, users, 
 - **Spring Boot**: Framework used to create stand-alone, production-grade Spring-based applications.
 - **Maven**: Build automation tool used for managing project dependencies.
 - **SQL**: Database language used for managing relational databases.
+- **PostgreSQL**: Open-source relational database used for storing data.
+- **PgAdmin**: Open-source administration and development platform for PostgreSQL.
 - **Docker**: Containerization platform for packaging and deploying services.
+- **Kafka**: Distributed event streaming platform used for building real-time data pipelines and streaming applications.
+- **ZooKeeper**: Centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services.
 
 ## Project Structure
 
