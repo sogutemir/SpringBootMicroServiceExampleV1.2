@@ -84,9 +84,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
     depends_on:
       - postgres
-      - kafka
-    networks:
-      - kafka-net
+
 
   notification-service:
     build: ./notification-service
