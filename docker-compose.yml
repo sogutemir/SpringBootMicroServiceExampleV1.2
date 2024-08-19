@@ -119,6 +119,19 @@ services:
     networks:
       - kafka-net
 
+  api-gateway:
+    build: ./GlobalApiGateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - account-service
+      - user-service
+      - order-service
+      - product-service
+      - notification-service
+    networks:
+      - kafka-net
+
 volumes:
   postgres-data:
 
