@@ -37,11 +37,6 @@ public class AccountServiceImpl implements AccountService {
             Account account = accountMapper.convertToEntity(accountDto);
             Account savedAccount = accountRepository.save(account);
 
-            if (savedAccount.getId() == null) {
-                log.warning("Account saving failed.");
-                throw new RuntimeException("Account saving failed.");
-            }
-
             user.setAccountId(savedAccount.getId());
             UserServiceExternalUserDto updatedUser = userServiceClient.updateUserById(accountDto.getUserId(), user);
 

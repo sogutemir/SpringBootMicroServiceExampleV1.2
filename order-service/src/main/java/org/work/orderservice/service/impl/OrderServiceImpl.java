@@ -39,11 +39,6 @@ public class OrderServiceImpl implements OrderService {
             Order order = orderMapper.convertToEntity(orderDto);
             Order savedOrder = orderRepository.save(order);
 
-            if (savedOrder.getId() == null) {
-                log.warning("Order saving failed.");
-                throw new RuntimeException("Order saving failed.");
-            }
-
             user.getOrderIds().add(savedOrder.getId());
             UserServiceExternalUserDto updatedUser = userServiceClient.updateUserById(orderDto.getUserId(), user);
 

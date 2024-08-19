@@ -38,11 +38,6 @@ public class ProductServiceImpl implements ProductService {
             Product product = productMapper.convertToEntity(productDto);
             Product savedProduct = productRepository.save(product);
 
-            if (savedProduct.getId() == null) {
-                log.warning("Product saving failed.");
-                throw new RuntimeException("Product saving failed.");
-            }
-
             user.getProductIds().add(savedProduct.getId());
             UserServiceExternalUserDto updatedUser = userServiceClient.updateUserById(productDto.getUserId(), user);
 

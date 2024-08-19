@@ -3,6 +3,7 @@ package org.work.notificationservice.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 import org.work.notificationservice.exception.ResourceNotFoundException;
 import org.work.notificationservice.model.dto.NotificationDto;
@@ -108,8 +109,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @KafkaListener(topics = ORDER_TOPIC, groupId = "notification_group")
-    private void listenOrderTopic(String message) {
-        log.info("-----------------------------------------------------------");
+    private void listenOrderTopic(String message, Acknowledgment acknowledgment) {
         log.info("Received message from order topic: " + message);
         try {
             Long orderId = Long.parseLong(message.replace("\"", ""));
@@ -121,7 +121,7 @@ public class NotificationServiceImpl implements NotificationService {
 
             notificationDto.setOrderId(orderId);
             createNotification(notificationDto);
-            log.info("Notification created successfully for orderId: " + orderId);
+
         } catch (NumberFormatException e) {
             log.log(Level.SEVERE, "Error parsing order ID from message: " + message, e);
         } catch (Exception e) {
